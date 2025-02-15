@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.riskgameapp'
+version = '1.0'
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+}
