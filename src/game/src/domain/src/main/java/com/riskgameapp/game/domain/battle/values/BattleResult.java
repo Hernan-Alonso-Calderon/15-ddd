@@ -1,6 +1,7 @@
 package com.riskgameapp.game.domain.battle.values;
 
 import com.riskgameapp.shared.domain.generic.IValueObject;
+import com.riskgameapp.shared.domain.utils.Validator;
 
 public class BattleResult implements IValueObject {
   private final Integer attackerLosses;
@@ -20,9 +21,11 @@ public class BattleResult implements IValueObject {
 
   @Override
   public void validate() {
-    if(this.attackerLosses == null){
-      throw new IllegalArgumentException("The argument can't be null");
-    }
+    Validator.validateNotNull(attackerLosses, "Attacker losses");
+    Validator.validateNotNull(defenderLosses, "Defender losses");
+    Validator.validateNotNull(isConquest, "Conquest flag");
+    Validator.validatePositive(attackerLosses, "Attacker losses");
+    Validator.validatePositive(defenderLosses, "Defender losses");
   }
 
   public Integer getAttackerLosses() {
