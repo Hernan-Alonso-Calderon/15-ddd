@@ -15,15 +15,17 @@ public class Attack extends Entity<AttackId> {
   private Troops territoryTroops;
   private DiceResults diceResults;
 
-  public Attack(AttackId identity, Troops attackingTroops, DiceResults diceResults) {
+  public Attack(AttackId identity, Troops attackingTroops, Troops territoryTroops, DiceResults diceResults) {
     super(identity);
     this.attackingTroops = attackingTroops;
+    this.territoryTroops = territoryTroops;
     this.diceResults = diceResults;
   }
 
-  public Attack(Troops attackingTroops, DiceResults diceResults) {
+  public Attack(Troops attackingTroops, Troops territoryTroops, DiceResults diceResults) {
     super(new AttackId());
     this.attackingTroops = attackingTroops;
+    this.territoryTroops = territoryTroops;
     this.diceResults = diceResults;
   }
 
