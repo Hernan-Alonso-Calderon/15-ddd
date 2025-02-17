@@ -15,6 +15,19 @@ public class Validator {
       throw new IllegalArgumentException(fieldName + " must be a positive number");
     }
   }
+
+  public static void validateNotBlank(String value, String fieldName) {
+    if (value.isBlank()) {
+      throw new IllegalArgumentException(fieldName + " can't be blank");
+    }
+  }
+
+  public static void validateAlphanumericCharacters(String value, String fieldName) {
+    if (!value.matches("^[a-zA-Z0-9\\s]*$")) {
+      throw new IllegalArgumentException(fieldName + " can only contain alphanumeric characters spaces");
+    }
+  }
+
   public static void validateListNotEmpty(List<?> list, String fieldName) {
     if (list == null || list.isEmpty()) {
       throw new IllegalArgumentException(fieldName + " can't be empty");
