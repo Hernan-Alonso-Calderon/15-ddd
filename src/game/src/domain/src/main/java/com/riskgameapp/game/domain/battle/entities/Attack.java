@@ -6,6 +6,7 @@ import com.riskgameapp.game.domain.battle.values.Troops;
 import com.riskgameapp.shared.domain.generic.Entity;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -29,7 +30,7 @@ public class Attack extends Entity<AttackId> {
     this.diceResults = diceResults;
   }
 
-  public Boolean validAttackingTroops(){
+  private Boolean validAttackingTroops(){
     Integer troopsQuantity = this.attackingTroops.getValue();
     if(troopsQuantity >= 1 && troopsQuantity <= 3){
       return true;
@@ -37,7 +38,7 @@ public class Attack extends Entity<AttackId> {
     return false;
   }
 
-  public Boolean canAttack(){
+  private Boolean canAttack(){
     Integer remainingTroops = this.territoryTroops.getValue() - this.attackingTroops.getValue();
     if(this.validAttackingTroops() && remainingTroops >= 1){
       return true;
@@ -53,6 +54,7 @@ public class Attack extends Entity<AttackId> {
       for(int i = 0; i<troopsQuantity; i++){
         results.add(random.nextInt(1,7));
       }
+      results.sort(Comparator.reverseOrder());
       setDiceResults(DiceResults.of(results));
     }
   }
