@@ -18,7 +18,7 @@ public class DomainActionsHandler {
     return events;
   }
 
-  public void subscribe(DomainActionsContainer actionsContainer) {
+  public void subscribe(final DomainActionsContainer actionsContainer) {
     actions.addAll(actionsContainer.actions);
   }
 

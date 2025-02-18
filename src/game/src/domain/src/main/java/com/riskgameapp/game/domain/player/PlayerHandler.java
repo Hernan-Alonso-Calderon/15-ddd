@@ -1,0 +1,93 @@
+package com.riskgameapp.game.domain.player;
+
+import com.riskgameapp.game.domain.player.entities.Territory;
+import com.riskgameapp.game.domain.player.entities.Troop;
+import com.riskgameapp.game.domain.player.events.AddedTerritory;
+import com.riskgameapp.game.domain.player.events.CreatedPlayer;
+import com.riskgameapp.game.domain.player.events.LostTerritoryTroop;
+import com.riskgameapp.game.domain.player.events.MovedTroop;
+import com.riskgameapp.game.domain.player.events.PlacedTroop;
+import com.riskgameapp.game.domain.player.events.RemovedTerritory;
+import com.riskgameapp.game.domain.player.values.Name;
+import com.riskgameapp.game.domain.player.values.Troops;
+import com.riskgameapp.shared.domain.generic.DomainActionsContainer;
+import com.riskgameapp.shared.domain.generic.DomainEvent;
+
+import java.util.ArrayList;
+import java.util.function.Consumer;
+
+public class PlayerHandler extends DomainActionsContainer {
+  public PlayerHandler(Player player) {
+    add(createPlayer(player));
+    add(addTerritory(player));
+    add(removeTerritory(player));
+    add(loseTerritoryTroop(player));
+    add(moveTroop(player));
+    add(placeTroop(player));
+  }
+
+  public Consumer<? extends DomainEvent> createPlayer(Player player){
+    return (CreatedPlayer event) -> {
+      player.setName(Name.of(event.getName()));
+      Troop newTroop = new Troop(Troops.of(0), Troops.of(0));
+      player.setTroop(newTroop);
+      player.setTerritories(new ArrayList<>());
+    };
+  }
+
+  public Consumer<? extends DomainEvent> addTerritory(Player player){
+    return (AddedTerritory event) -> {
+      Territory newTerritory = new Territory(Name.of(event.getTerritoryName()), Troops.of(0));
+      player.getTerritories().add(newTerritory);
+    };
+  }
+
+  public Consumer<? extends DomainEvent> removeTerritory(Player player){
+    return (RemovedTerritory event) -> {
+      Territory selectTerritory = player.selectTerritory(event.getTerritoryName());
+      player.getTerritories().remove(selectTerritory);
+    };
+  }
+
+  public Consumer<? extends DomainEvent> loseTerritoryTroop(Player player){
+    return (LostTerritoryTroop event) -> {
+      Territory selectTerritory = player.selectTerritory(event.getTerritoryName());
+      if(selectTerritory!= null){
+        Boolean canLose = selectTerritory.decreaseTroop(event.getTroopQuantity());
+        if(canLose){
+          player.getTroop().decreaseBaseTroops(event.getTroopQuantity());
+        }
+      }
+    };
+  }
+
+  public Consumer<? extends DomainEvent> moveTroop(Player player){
+    return (MovedTroop event) -> {
+      Territory origin = player.selectTerritory(event.getOriginTerritory());
+      Territory destiny = player.selectTerritory(event.getDestinyTerritory());
+      move(origin, destiny, event);
+    };
+  }
+
+  private void move(Territory origin, Territory destiny, MovedTroop event){
+    if(origin != null && destiny != null && origin.validateMovement((event.getDestinyTerritory()))){
+      Boolean canMove = origin.decreaseTroop(event.getTroopQuantity());
+      if(canMove){
+        destiny.increaseTroop(event.getTroopQuantity());
+      }
+    }
+  }
+
+  public Consumer<? extends DomainEvent> placeTroop(Player player){
+    return (PlacedTroop event) -> {
+      Territory selectTerritory = player.selectTerritory(event.getTerritoryName());
+      if(selectTerritory!= null){
+        Boolean canPlace =  player.getTroop().placeNewTroops(event.getTroopQuantity());
+        if(canPlace){
+          selectTerritory.increaseTroop(event.getTroopQuantity());
+        }
+      }
+    };
+  }
+
+}
