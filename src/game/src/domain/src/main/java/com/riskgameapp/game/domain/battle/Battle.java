@@ -5,13 +5,9 @@ import com.riskgameapp.game.domain.battle.entities.Conquest;
 import com.riskgameapp.game.domain.battle.entities.Defense;
 import com.riskgameapp.game.domain.battle.events.ResolvedAttack;
 import com.riskgameapp.game.domain.battle.values.BattleId;
-import com.riskgameapp.game.domain.battle.values.DiceResults;
-import com.riskgameapp.game.domain.battle.values.IsConquest;
-import com.riskgameapp.game.domain.battle.values.Troops;
 import com.riskgameapp.shared.domain.generic.AggregateRoot;
+import com.riskgameapp.shared.domain.generic.DomainEvent;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Battle extends AggregateRoot<BattleId> {
@@ -23,10 +19,12 @@ public class Battle extends AggregateRoot<BattleId> {
   // region Constructors
   public Battle() {
     super(new BattleId());
+    subscribe(new BattleHandler(this));
   }
 
   private Battle(BattleId identity) {
     super(identity);
+    subscribe(new BattleHandler(this));
   }
   //endregion
 
@@ -34,26 +32,19 @@ public class Battle extends AggregateRoot<BattleId> {
   public void resolveAttack(Integer attackingTroops, Integer attackerTerritoryTroops, Integer defenderTerritoryTroops){
     apply(new ResolvedAttack(attackingTroops, attackerTerritoryTroops, defenderTerritoryTroops));
   }
+
+  public static Battle from(final String identity, final List<DomainEvent> events) {
+    Battle battle = new Battle(BattleId.of(identity));
+
+    events.forEach(battle::apply);
+    return battle;
+  }
   //endregion
 
   //region Public Methods
   //endregion
 
   //region Private Methods
-  private void resolve(Integer attackingTroops, Integer attackerTerritoryTroops, Integer defenderTerritoryTroops){
-    List<Integer> list = new ArrayList<>(Arrays.asList(1, 1, 1));
-    attack = new Attack(Troops.of(attackingTroops), Troops.of(attackerTerritoryTroops), DiceResults.of(list));
-    attack.rollDice();
-    defense = new Defense(Troops.of(defenderTerritoryTroops),DiceResults.of(list));
-    defense.rollDice();
-    conquest = new Conquest(Troops.of(0),Troops.of(0), IsConquest.of(false));
-    conquest.calculateLosses(attack.getDiceResults().getValue(), defense.getDiceResults().getValue());
-    conquest.validateConquest(defenderTerritoryTroops);
-  }
-
-  private void finalizeAttack(){
-    //Notificar al agregado player sobre los cambios de las tropas en los territorios.
-  }
   //endregion
 
   // region Getters and Setters
