@@ -3,6 +3,7 @@ package com.riskgameapp.game.domain.battle;
 import com.riskgameapp.game.domain.battle.entities.Attack;
 import com.riskgameapp.game.domain.battle.entities.Conquest;
 import com.riskgameapp.game.domain.battle.entities.Defense;
+import com.riskgameapp.game.domain.battle.events.CreatedBattle;
 import com.riskgameapp.game.domain.battle.events.ResolvedAttack;
 import com.riskgameapp.game.domain.battle.values.BattleId;
 import com.riskgameapp.shared.domain.generic.AggregateRoot;
@@ -17,9 +18,10 @@ public class Battle extends AggregateRoot<BattleId> {
   private Conquest conquest;
 
   // region Constructors
-  public Battle() {
+  public Battle(Integer attackingTroops, Integer attackerTerritoryTroops, Integer defenderTerritoryTroops) {
     super(new BattleId());
     subscribe(new BattleHandler(this));
+    apply(new CreatedBattle(attackingTroops, attackerTerritoryTroops, defenderTerritoryTroops));
   }
 
   private Battle(BattleId identity) {
@@ -29,8 +31,8 @@ public class Battle extends AggregateRoot<BattleId> {
   //endregion
 
   //region Domain Actions
-  public void resolveAttack(Integer attackingTroops, Integer attackerTerritoryTroops, Integer defenderTerritoryTroops){
-    apply(new ResolvedAttack(attackingTroops, attackerTerritoryTroops, defenderTerritoryTroops));
+  public void resolveAttack(){
+    apply(new ResolvedAttack());
   }
 
   public static Battle from(final String identity, final List<DomainEvent> events) {
