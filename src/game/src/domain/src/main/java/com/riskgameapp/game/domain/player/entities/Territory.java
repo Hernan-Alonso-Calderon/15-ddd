@@ -4,9 +4,6 @@ import com.riskgameapp.game.domain.player.values.Name;
 import com.riskgameapp.game.domain.player.values.TerritoryId;
 import com.riskgameapp.game.domain.player.values.Troops;
 import com.riskgameapp.shared.domain.generic.Entity;
-import com.riskgameapp.shared.domain.utils.RiskBoard;
-
-import java.util.List;
 
 public class Territory extends Entity<TerritoryId> {
   private Name territoryName;
@@ -22,11 +19,6 @@ public class Territory extends Entity<TerritoryId> {
     super(new TerritoryId());
     this.territoryName = territoryName;
     this.troopCount = troopCount;
-  }
-
-  public Boolean validateMovement(String territoryToMove){
-    List<String> neighbors = RiskBoard.getNeighbors(territoryName.getValue());
-    return neighbors.contains(territoryToMove);
   }
 
   public void increaseTroop(Integer troopQuantity){

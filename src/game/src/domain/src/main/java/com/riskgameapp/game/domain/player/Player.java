@@ -5,7 +5,6 @@ import com.riskgameapp.game.domain.player.entities.Troop;
 import com.riskgameapp.game.domain.player.events.AddedTerritory;
 import com.riskgameapp.game.domain.player.events.CreatedPlayer;
 import com.riskgameapp.game.domain.player.events.LostTerritoryTroop;
-import com.riskgameapp.game.domain.player.events.MovedTroop;
 import com.riskgameapp.game.domain.player.events.PlacedTroop;
 import com.riskgameapp.game.domain.player.events.RemovedTerritory;
 import com.riskgameapp.game.domain.player.values.Name;
@@ -44,10 +43,6 @@ public class Player extends AggregateRoot<PlayerId> {
 
   public void loseTerritoryTroop(String territoryName, Integer troopQuantity){
     apply(new LostTerritoryTroop(territoryName, troopQuantity));
-  }
-
-  public void moveTroop(String originTerritory, String destinyTerritory, Integer troopQuantity){
-    apply(new MovedTroop(originTerritory, destinyTerritory, troopQuantity));
   }
 
   public void placeTroop(String territoryName, Integer troopQuantity){

@@ -5,7 +5,6 @@ import com.riskgameapp.game.domain.player.entities.Troop;
 import com.riskgameapp.game.domain.player.events.AddedTerritory;
 import com.riskgameapp.game.domain.player.events.CreatedPlayer;
 import com.riskgameapp.game.domain.player.events.LostTerritoryTroop;
-import com.riskgameapp.game.domain.player.events.MovedTroop;
 import com.riskgameapp.game.domain.player.events.PlacedTroop;
 import com.riskgameapp.game.domain.player.events.RemovedTerritory;
 import com.riskgameapp.game.domain.player.values.Name;
@@ -22,7 +21,6 @@ public class PlayerHandler extends DomainActionsContainer {
     add(addTerritory(player));
     add(removeTerritory(player));
     add(loseTerritoryTroop(player));
-    add(moveTroop(player));
     add(placeTroop(player));
   }
 
@@ -59,23 +57,6 @@ public class PlayerHandler extends DomainActionsContainer {
         }
       }
     };
-  }
-
-  public Consumer<? extends DomainEvent> moveTroop(Player player){
-    return (MovedTroop event) -> {
-      Territory origin = player.selectTerritory(event.getOriginTerritory());
-      Territory destiny = player.selectTerritory(event.getDestinyTerritory());
-      move(origin, destiny, event);
-    };
-  }
-
-  private void move(Territory origin, Territory destiny, MovedTroop event){
-    if(origin != null && destiny != null && origin.validateMovement((event.getDestinyTerritory()))){
-      Boolean canMove = origin.decreaseTroop(event.getTroopQuantity());
-      if(canMove){
-        destiny.increaseTroop(event.getTroopQuantity());
-      }
-    }
   }
 
   public Consumer<? extends DomainEvent> placeTroop(Player player){
