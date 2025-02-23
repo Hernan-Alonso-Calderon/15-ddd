@@ -90,7 +90,7 @@ class PlayerTest {
   @Test
   void placeTroopSuccess(){
     player.addTerritory("Argentina");
-    player.getTroop().setNewTroops(Troops.of(2));
+    player.addNewTroop(2);
     Player player2 = new Player("jugador2");
     player2.addTerritory("Brasil");
 
@@ -103,8 +103,8 @@ class PlayerTest {
     assertEquals(1,player.getTroop().getNewTroops().getValue());
     assertEquals(1,player.getTerritories().get(0).getTroopCount().getValue());
     assertEquals(0,player2.getTerritories().get(0).getTroopCount().getValue());
-    assertEquals(4,player.getUncommittedEvents().size());
-    assertInstanceOf(PlacedTroop.class, player.getUncommittedEvents().get(3));
+    assertEquals(5,player.getUncommittedEvents().size());
+    assertInstanceOf(PlacedTroop.class, player.getUncommittedEvents().get(4));
   }
 
   @Test

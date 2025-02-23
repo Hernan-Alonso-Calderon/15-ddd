@@ -2,6 +2,7 @@ package com.riskgameapp.game.domain.player;
 
 import com.riskgameapp.game.domain.player.entities.Territory;
 import com.riskgameapp.game.domain.player.entities.Troop;
+import com.riskgameapp.game.domain.player.events.AddedNewTroop;
 import com.riskgameapp.game.domain.player.events.AddedTerritory;
 import com.riskgameapp.game.domain.player.events.CreatedPlayer;
 import com.riskgameapp.game.domain.player.events.LostTerritoryTroop;
@@ -21,6 +22,7 @@ public class PlayerHandler extends DomainActionsContainer {
     add(addTerritory(player));
     add(removeTerritory(player));
     add(loseTerritoryTroop(player));
+    add(addNewTroop(player));
     add(placeTroop(player));
   }
 
@@ -57,6 +59,10 @@ public class PlayerHandler extends DomainActionsContainer {
         }
       }
     };
+  }
+
+  public Consumer<? extends DomainEvent> addNewTroop(Player player){
+    return (AddedNewTroop event) -> player.getTroop().setNewTroops(Troops.of(event.getTroopQuantity()));
   }
 
   public Consumer<? extends DomainEvent> placeTroop(Player player){

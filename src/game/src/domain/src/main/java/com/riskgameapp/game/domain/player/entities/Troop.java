@@ -21,7 +21,7 @@ public class Troop extends Entity<TroopId> {
   }
 
   public Boolean placeNewTroops(Integer troopQuantity){
-    if(newTroops.getValue() > troopQuantity){
+    if(newTroops.getValue() >= troopQuantity){
       Integer result = newTroops.getValue()-troopQuantity;
       setNewTroops(Troops.of(result));
       Integer newBaseTroops = baseTroops.getValue()+troopQuantity;
@@ -52,7 +52,9 @@ public class Troop extends Entity<TroopId> {
   }
 
   public void setNewTroops(Troops newTroops) {
+
     this.newTroops = newTroops;
+    System.out.println("Nueva tropa"+this.newTroops);
   }
   //endregion
 }

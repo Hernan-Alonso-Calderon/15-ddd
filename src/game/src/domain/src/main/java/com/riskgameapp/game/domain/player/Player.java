@@ -2,6 +2,7 @@ package com.riskgameapp.game.domain.player;
 
 import com.riskgameapp.game.domain.player.entities.Territory;
 import com.riskgameapp.game.domain.player.entities.Troop;
+import com.riskgameapp.game.domain.player.events.AddedNewTroop;
 import com.riskgameapp.game.domain.player.events.AddedTerritory;
 import com.riskgameapp.game.domain.player.events.CreatedPlayer;
 import com.riskgameapp.game.domain.player.events.LostTerritoryTroop;
@@ -47,6 +48,10 @@ public class Player extends AggregateRoot<PlayerId> {
 
   public void placeTroop(String territoryName, Integer troopQuantity){
     apply(new PlacedTroop(territoryName, troopQuantity));
+  }
+
+  public void addNewTroop(Integer troopQuantity){
+    apply(new AddedNewTroop(troopQuantity));
   }
 
   public static Player from(final String identity, final List<DomainEvent> events) {
