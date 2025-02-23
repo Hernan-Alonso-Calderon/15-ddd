@@ -1,5 +1,14 @@
 rootProject.name = 'risk-game-app'
+
 include ':shared:domain'
+include ':shared:application'
 include ':game:domain'
+include ':game:application'
+
 project(':shared:domain').projectDir = file('./src/shared/src/domain')
+project(':shared:application').projectDir = file('./src/shared/src/application')
 project(':game:domain').projectDir = file('./src/game/src/domain')
+project(':game:application').projectDir = file('./src/game/src/application')
+
+
+
