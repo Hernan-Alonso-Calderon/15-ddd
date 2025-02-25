@@ -30,10 +30,10 @@ class PlayerTest {
 
   @Test
   void createPlayerSuccess(){
-    assertNotNull(player.getName());
+    assertNotNull(player.getPlayerName());
     assertNotNull(player.getTroop());
     assertNotNull(player.getTerritories());
-    assertEquals("jugador1", player.getName().getValue());
+    assertEquals("jugador1", player.getPlayerName().getValue());
     assertEquals(0, player.getTroop().getBaseTroops().getValue());
     assertEquals(0, player.getTroop().getNewTroops().getValue());
     assertEquals(0,player.getTerritories().size());

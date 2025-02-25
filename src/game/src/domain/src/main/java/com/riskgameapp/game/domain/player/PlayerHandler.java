@@ -28,7 +28,7 @@ public class PlayerHandler extends DomainActionsContainer {
 
   public Consumer<? extends DomainEvent> createPlayer(Player player){
     return (CreatedPlayer event) -> {
-      player.setName(Name.of(event.getName()));
+      player.setPlayerName(Name.of(event.getPlayerName()));
       Troop newTroop = new Troop(Troops.of(0), Troops.of(0));
       player.setTroop(newTroop);
       player.setTerritories(new ArrayList<>());

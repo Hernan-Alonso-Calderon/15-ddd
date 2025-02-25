@@ -4,9 +4,9 @@ import java.time.Instant;
 import java.util.UUID;
 
 public abstract class DomainEvent {
-  private final String name;
-  private final Instant when;
-  private final String uuid;
+  private String name;
+  private Instant when;
+  private String uuid;
   private Long version;
   private String aggregateRootId;
   private String aggregateName;
@@ -52,5 +52,17 @@ public abstract class DomainEvent {
 
   public void setAggregateName(String aggregateName) {
     this.aggregateName = aggregateName;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setWhen(Instant when) {
+    this.when = when;
+  }
+
+  public void setUuid(String uuid) {
+    this.uuid = uuid;
   }
 }

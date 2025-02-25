@@ -3,13 +3,13 @@ import java.util.List;
 
 public class PlayerResponse {
   private final String playerId;
-  private final String name;
+  private final String playerName;
   private final List<Territory> territories;
   private final Troop troop;
 
-  public PlayerResponse(String playerId, String name, List<Territory> territories, Troop troop) {
+  public PlayerResponse(String playerId, String playerName, List<Territory> territories, Troop troop) {
     this.playerId = playerId;
-    this.name = name;
+    this.playerName = playerName;
     this.territories = territories;
     this.troop = troop;
   }
@@ -18,8 +18,8 @@ public class PlayerResponse {
     return playerId;
   }
 
-  public String getName() {
-    return name;
+  public String getPlayerName() {
+    return playerName;
   }
 
   public List<Territory> getTerritories() {

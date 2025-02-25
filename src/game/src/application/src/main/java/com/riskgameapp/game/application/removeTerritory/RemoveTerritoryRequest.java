@@ -5,7 +5,7 @@ import com.riskgameapp.shared.application.Request;
 public class RemoveTerritoryRequest extends Request {
   private final String territoryName;
 
-  protected RemoveTerritoryRequest(String aggregateId, String territoryName) {
+  public RemoveTerritoryRequest(String aggregateId, String territoryName) {
     super(aggregateId);
     this.territoryName = territoryName;
   }

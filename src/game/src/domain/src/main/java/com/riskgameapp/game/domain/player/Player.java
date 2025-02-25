@@ -16,15 +16,15 @@ import com.riskgameapp.shared.domain.generic.DomainEvent;
 import java.util.List;
 
 public class Player extends AggregateRoot<PlayerId> {
-  private Name name;
+  private Name playerName;
   private List<Territory> territories;
   private Troop troop;
 
   // region Constructors
-  public Player(String name) {
+  public Player(String playerName) {
     super(new PlayerId());
     subscribe(new PlayerHandler(this));
-    apply(new CreatedPlayer(name));
+    apply(new CreatedPlayer(playerName));
   }
 
   private Player(PlayerId identity) {
@@ -77,12 +77,12 @@ public class Player extends AggregateRoot<PlayerId> {
   //endregion
 
   // region Getters and Setters
-  public Name getName() {
-    return name;
+  public Name getPlayerName() {
+    return playerName;
   }
 
-  public void setName(Name name) {
-    this.name = name;
+  public void setPlayerName(Name playerName) {
+    this.playerName = playerName;
   }
 
   public List<Territory> getTerritories() {

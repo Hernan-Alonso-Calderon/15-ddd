@@ -24,7 +24,7 @@ class CreatePlayerUseCaseTest {
       .create(useCase.execute(request))
       .assertNext(response -> {
         assertNotNull(response);
-        assertEquals(request.getName(), response.getName());
+        assertEquals(request.getPlayerName(), response.getPlayerName());
         assertEquals(0, response.getTerritories().size());
         assertEquals(0, response.getTroop().getBaseTroops());
         assertEquals(0, response.getTroop().getNewTroops());

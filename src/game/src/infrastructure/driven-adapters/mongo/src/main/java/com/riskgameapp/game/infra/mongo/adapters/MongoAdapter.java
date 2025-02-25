@@ -23,6 +23,6 @@ public class MongoAdapter implements IEventsRepositoryPort {
 
   @Override
   public void save(DomainEvent domainEvent) {
-    eventsRepository.save(new Event(domainEvent));
+    eventsRepository.save(new Event(domainEvent)).subscribe();
   }
 }

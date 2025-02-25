@@ -3,14 +3,20 @@ package com.riskgameapp.game.application.createPlayer;
 import com.riskgameapp.shared.application.Request;
 
 public class CreatePlayerRequest extends Request {
-  private final String name;
+  private String playerName;
 
-  protected CreatePlayerRequest(String name) {
+  protected CreatePlayerRequest() {
     super(null);
-    this.name = name;
+    this.playerName = null;
   }
 
-  public String getName() {
-    return name;
+  public CreatePlayerRequest(String playerName) {
+    super(null);
+    this.playerName = playerName;
   }
+
+  public String getPlayerName() {
+    return playerName;
+  }
+
 }

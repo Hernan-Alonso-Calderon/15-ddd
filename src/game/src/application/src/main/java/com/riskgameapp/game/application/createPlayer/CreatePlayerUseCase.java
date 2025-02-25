@@ -17,7 +17,7 @@ public class CreatePlayerUseCase implements ICommandUseCase<CreatePlayerRequest,
 
   @Override
   public Mono<PlayerResponse> execute(CreatePlayerRequest request) {
-    Player player = new Player(request.getName());
+    Player player = new Player(request.getPlayerName());
 
     player.getUncommittedEvents().forEach(repository::save);
     player.markEventsAsCommitted();

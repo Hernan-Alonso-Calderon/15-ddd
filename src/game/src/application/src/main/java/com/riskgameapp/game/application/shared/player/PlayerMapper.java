@@ -7,7 +7,7 @@ public class PlayerMapper {
 
     return new PlayerResponse(
       player.getIdentity().getValue(),
-      player.getName().getValue(),
+      player.getPlayerName().getValue(),
       player.getTerritories().stream().map(item -> new PlayerResponse.Territory(item.getIdentity().getValue(), item.getTerritoryName().getValue(), item.getTroopCount().getValue())).toList(),
       new PlayerResponse.Troop(
         player.getTroop().getIdentity().getValue(),
