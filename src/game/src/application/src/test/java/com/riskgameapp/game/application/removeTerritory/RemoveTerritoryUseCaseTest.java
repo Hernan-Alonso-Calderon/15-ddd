@@ -1,6 +1,6 @@
 package com.riskgameapp.game.application.removeTerritory;
 
-import com.riskgameapp.game.application.shared.repositories.IEventsRepository;
+import com.riskgameapp.game.application.shared.ports.IEventsRepositoryPort;
 import com.riskgameapp.game.domain.player.events.AddedTerritory;
 import com.riskgameapp.game.domain.player.events.CreatedPlayer;
 import org.junit.jupiter.api.Test;
@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class RemoveTerritoryUseCaseTest {
   private final RemoveTerritoryUseCase useCase;
-  private final IEventsRepository repository;
+  private final IEventsRepositoryPort repository;
 
   public RemoveTerritoryUseCaseTest() {
-    repository = Mockito.mock(IEventsRepository.class);
+    repository = Mockito.mock(IEventsRepositoryPort.class);
     useCase = new RemoveTerritoryUseCase(repository);
   }
 

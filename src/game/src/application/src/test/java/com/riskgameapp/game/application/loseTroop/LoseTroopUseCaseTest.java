@@ -1,6 +1,6 @@
 package com.riskgameapp.game.application.loseTroop;
 
-import com.riskgameapp.game.application.shared.repositories.IEventsRepository;
+import com.riskgameapp.game.application.shared.ports.IEventsRepositoryPort;
 import com.riskgameapp.game.domain.player.events.AddedNewTroop;
 import com.riskgameapp.game.domain.player.events.AddedTerritory;
 import com.riskgameapp.game.domain.player.events.CreatedPlayer;
@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LoseTroopUseCaseTest {
   private final LoseTroopUseCase useCase;
-  private final IEventsRepository repository;
+  private final IEventsRepositoryPort repository;
 
   public LoseTroopUseCaseTest() {
-    repository = Mockito.mock(IEventsRepository.class);
+    repository = Mockito.mock(IEventsRepositoryPort.class);
     useCase = new LoseTroopUseCase(repository);
   }
 

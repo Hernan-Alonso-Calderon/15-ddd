@@ -1,7 +1,7 @@
 package com.riskgameapp.game.application.createPlayer;
 
 import com.riskgameapp.game.application.shared.player.PlayerResponse;
-import com.riskgameapp.game.application.shared.repositories.IEventsRepository;
+import com.riskgameapp.game.application.shared.ports.IEventsRepositoryPort;
 import com.riskgameapp.game.domain.player.Player;
 import com.riskgameapp.shared.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
@@ -9,9 +9,9 @@ import reactor.core.publisher.Mono;
 import static com.riskgameapp.game.application.shared.player.PlayerMapper.mapToPlayer;
 
 public class CreatePlayerUseCase implements ICommandUseCase<CreatePlayerRequest, Mono<PlayerResponse>> {
-  private final IEventsRepository repository;
+  private final IEventsRepositoryPort repository;
 
-  public CreatePlayerUseCase(IEventsRepository repository) {
+  public CreatePlayerUseCase(IEventsRepositoryPort repository) {
     this.repository = repository;
   }
 

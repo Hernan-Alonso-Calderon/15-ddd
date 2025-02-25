@@ -1,6 +1,6 @@
 package com.riskgameapp.game.application.addTerritory;
 
-import com.riskgameapp.game.application.shared.repositories.IEventsRepository;
+import com.riskgameapp.game.application.shared.ports.IEventsRepositoryPort;
 import com.riskgameapp.game.domain.player.events.CreatedPlayer;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class AddTerritoryUseCaseTest {
   private final AddTerritoryUseCase useCase;
-  private final IEventsRepository repository;
+  private final IEventsRepositoryPort repository;
 
   public AddTerritoryUseCaseTest() {
-    repository = Mockito.mock(IEventsRepository.class);
+    repository = Mockito.mock(IEventsRepositoryPort.class);
     useCase = new AddTerritoryUseCase(repository);
   }
 

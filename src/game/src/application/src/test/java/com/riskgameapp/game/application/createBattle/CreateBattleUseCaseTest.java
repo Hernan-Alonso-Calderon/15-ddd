@@ -1,6 +1,6 @@
 package com.riskgameapp.game.application.createBattle;
 
-import com.riskgameapp.game.application.shared.repositories.IEventsRepository;
+import com.riskgameapp.game.application.shared.ports.IEventsRepositoryPort;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import reactor.test.StepVerifier;
@@ -10,10 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class CreateBattleUseCaseTest {
   private final CreateBattleUseCase useCase;
-  private final IEventsRepository repository;
+  private final IEventsRepositoryPort repository;
 
   public CreateBattleUseCaseTest() {
-    repository = Mockito.mock(IEventsRepository.class);
+    repository = Mockito.mock(IEventsRepositoryPort.class);
     useCase = new CreateBattleUseCase(repository);
   }
 

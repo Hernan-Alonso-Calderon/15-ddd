@@ -1,7 +1,7 @@
 package com.riskgameapp.game.application.placeTroop;
 
 import com.riskgameapp.game.application.shared.player.PlayerResponse;
-import com.riskgameapp.game.application.shared.repositories.IEventsRepository;
+import com.riskgameapp.game.application.shared.ports.IEventsRepositoryPort;
 import com.riskgameapp.game.domain.player.Player;
 import com.riskgameapp.shared.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
@@ -9,9 +9,9 @@ import reactor.core.publisher.Mono;
 import static com.riskgameapp.game.application.shared.player.PlayerMapper.mapToPlayer;
 
 public class PlaceTroopUseCase implements ICommandUseCase<PlaceTroopRequest, Mono<PlayerResponse>> {
-  private final IEventsRepository repository;
+  private final IEventsRepositoryPort repository;
 
-  public PlaceTroopUseCase(IEventsRepository repository) {
+  public PlaceTroopUseCase(IEventsRepositoryPort repository) {
     this.repository = repository;
   }
 

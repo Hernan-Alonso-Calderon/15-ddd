@@ -1,7 +1,7 @@
 package com.riskgameapp.game.application.createBattle;
 
 import com.riskgameapp.game.application.shared.battle.BattleResponse;
-import com.riskgameapp.game.application.shared.repositories.IEventsRepository;
+import com.riskgameapp.game.application.shared.ports.IEventsRepositoryPort;
 import com.riskgameapp.game.domain.battle.Battle;
 import com.riskgameapp.shared.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
@@ -9,9 +9,9 @@ import reactor.core.publisher.Mono;
 import static com.riskgameapp.game.application.shared.battle.BattleMapper.mapToBattle;
 
 public class CreateBattleUseCase implements ICommandUseCase<CreateBattleRequest, Mono<BattleResponse>> {
-  private final IEventsRepository repository;
+  private final IEventsRepositoryPort repository;
 
-  public CreateBattleUseCase(IEventsRepository repository) {
+  public CreateBattleUseCase(IEventsRepositoryPort repository) {
     this.repository = repository;
   }
 

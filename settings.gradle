@@ -4,11 +4,13 @@ include ':shared:domain'
 include ':shared:application'
 include ':game:domain'
 include ':game:application'
+include ':game:mongo'
+include ':game:main-service'
 
 project(':shared:domain').projectDir = file('./src/shared/src/domain')
 project(':shared:application').projectDir = file('./src/shared/src/application')
 project(':game:domain').projectDir = file('./src/game/src/domain')
 project(':game:application').projectDir = file('./src/game/src/application')
-
-
+project(':game:mongo').projectDir = file('./src/game/src/infrastructure/driven-adapters/mongo')
+project(':game:main-service').projectDir = file('./src/game/src/infrastructure/driving-adapters/main-service')
 
