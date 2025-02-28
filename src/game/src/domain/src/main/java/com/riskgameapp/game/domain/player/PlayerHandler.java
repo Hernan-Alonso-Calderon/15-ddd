@@ -14,6 +14,7 @@ import com.riskgameapp.shared.domain.generic.DomainActionsContainer;
 import com.riskgameapp.shared.domain.generic.DomainEvent;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class PlayerHandler extends DomainActionsContainer {
@@ -35,10 +36,23 @@ public class PlayerHandler extends DomainActionsContainer {
     };
   }
 
-  public Consumer<? extends DomainEvent> addTerritory(Player player){
+  public Consumer<? extends DomainEvent> addTerritory(Player player) {
     return (AddedTerritory event) -> {
-      Territory newTerritory = new Territory(Name.of(event.getTerritoryName()), Troops.of(0));
-      player.getTerritories().add(newTerritory);
+      // 1. Crear el nuevo territorio
+      Territory newTerritory = new Territory(
+        Name.of(event.getTerritoryName()),
+        Troops.of(0)
+      );
+
+      List<Territory> currentTerritories = new ArrayList<>(player.getTerritories());
+
+      boolean territoryExists = currentTerritories.stream()
+        .anyMatch(t -> t.getTerritoryName().getValue().equals(newTerritory.getTerritoryName().getValue()));
+
+      if (!territoryExists) {
+        currentTerritories.add(newTerritory);
+        player.setTerritories(currentTerritories); // Actualizar la lista
+      }
     };
   }
 
